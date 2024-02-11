@@ -1,4 +1,25 @@
-// Function to handle a cell click
+document.addEventListener("DOMContentLoaded", () => {
+    const board = document.getElementById("board");
+    const overlay = document.getElementById("overlay");
+    const winnerText = document.querySelector(".winner-text");
+    let currentPlayer = "X";
+    let gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+    // Create the game board dynamically
+    for (let i = 0; i < 9; i++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.id = i;
+        cell.addEventListener("click", () => handleCellClick(i));
+        
+        const symbol = document.createElement("div");
+        symbol.className = "symbol";
+        cell.appendChild(symbol);
+
+        board.appendChild(cell);
+    }
+
+    // Function to handle a cell click
     function handleCellClick(index) {
         if (gameBoard[index] === "" && !isGameOver()) {
             gameBoard[index] = currentPlayer;
@@ -10,7 +31,7 @@
                 winnerText.innerText = `GAME OVER  Player ${currentPlayer} wins!`;
                 showOverlay();
             } else if (isBoardFull()) {
-                winnerText.innerText = "Match drawn!";
+                winnerText.innerText = "Match draw!";
                 showOverlay();
             } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
